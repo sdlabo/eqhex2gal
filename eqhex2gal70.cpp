@@ -95,18 +95,18 @@ int calc_average(char *filename, float *avgs)
 
 int main(int argc, char** argv)
 {
-  if(argc != 2){
+  if(argc != 3){
     char buf[1024];
 
     printf("ファイルをドラッグアンドドロップして下さい。\r\n\r\n");
     printf("コマンドラインからは\r\n");
-    printf("%s [filename]\r\n", argv[0]);
+    printf("%s [infile] [outfile]\r\n", argv[0]);
     printf("で実行します。\r\n");
     exit(-1);
   }
 
   char csvfile[1024];
-  sprintf(csvfile, "%s.csv", argv[1]);
+  sprintf(csvfile, "%s", argv[2]);
   FILE* wp = fopen(csvfile, "w");
   if(wp == NULL){
     printf("ファイルが開けません: %s\n\n", csvfile);
