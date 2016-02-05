@@ -5,46 +5,39 @@ if($argc != 3){
   exit(-1);
 }
 
-//$start_year = "2016";
-//$start_month = "01";
-//$next_month = "01";
+$year = sprintf("%04d", $argv[1]);
+$month= sprintf("%02d", $argv[2]);
 
-//while($start_month == $next_month){
-  $year = sprintf("%04d", $argv[1]);
-  $month= sprintf("%02d", $argv[2]);
+$pattern = "/var/www/html/battleship/files/$year/$month/*/*.zip";
 
-  $pattern = "/var/www/html/battleship/files/$year/$month/*/*.zip";
+foreach(glob($pattern) as $file){
 
-  foreach(glob($pattern) as $file){
+  $base = basename($file);
 
-    $base = basename($file);
+  $file = str_replace('(', '\\(', $file);
+  $file = str_replace(")", '\\)', $file);
 
-    $file = str_replace('(', '\\(', $file);
-    $file = str_replace(")", '\\)', $file);
+  $fromfile = $file;
+  echo $fromfile . "\n";
 
-    $fromfile = $file;
-    echo $fromfile . "\n";
+  $zipdir = "/var/www/html/battleship/zips/$year/$month/";
+  mkdir($zipdir, 0777, true);
 
-    $zipdir = "/var/www/html/battleship/zips/$year/$month/";
-    mkdir($zipdir, 0777, true);
+  $base = str_replace("(", "_", $base);
+  $base = str_replace(")", "_", $base);
 
-   $base = str_replace("(", "_", $base);
-   $base = str_replace(")", "_", $base);
+  echo "calling unzip\n";
+  exec("unzip -p $fromfile > $zipdir${base}.txt");
+  $tofile = "$base";
+  $tofile = str_replace(".txt", "", $tofile);
 
-    echo "calling unzip\n";
-    exec("unzip -p $fromfile > $zipdir${base}.txt");
-    $tofile = "$base";
-    $tofile = str_replace(".txt", "", $tofile);
+  echo "calling exhex2gal70\n";
+  exec("eqhex2gal70 $zipdir${base}.txt $zipdir${tofile}_b70.csv");
+  unlink("$zipdir${base}.txt");
+  echo $tofile . "\n";
+}
 
-    echo "calling exhex2gal70\n";
-    exec("eqhex2gal70 $zipdir${base}.txt $zipdir${tofile}_b70.csv");
-    unlink("$zipdir${base}.txt");
-    echo $tofile . "\n";
-  }
-  exec("cd $zipdir; zip -o $year${month}_b70.zip *.csv");
-  exec("rm $zipdir/*.csv");
-
-//}
-
+exec("cd $zipdir; zip -o $year${month}_b70.zip *.csv");
+exec("rm $zipdir/*.csv");
 
 ?>
