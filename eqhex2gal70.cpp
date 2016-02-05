@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <errors.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
