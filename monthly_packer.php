@@ -8,6 +8,9 @@ if($argc != 3){
 $year = sprintf("%04d", $argv[1]);
 $month= sprintf("%02d", $argv[2]);
 
+$zipdir = "/var/www/html/battleship/zips/$year/$month/";
+mkdir($zipdir, 0777, true);
+
 $pattern = "/var/www/html/battleship/files/$year/$month/*/*.zip";
 
 foreach(glob($pattern) as $file){
@@ -20,8 +23,6 @@ foreach(glob($pattern) as $file){
   $fromfile = $file;
   echo $fromfile . "\n";
 
-  $zipdir = "/var/www/html/battleship/zips/$year/$month/";
-  mkdir($zipdir, 0777, true);
 
   $base = str_replace("(", "_", $base);
   $base = str_replace(")", "_", $base);
