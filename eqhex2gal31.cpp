@@ -97,7 +97,6 @@ int calc_average(char *filename, float *avgs)
       }else{
         printf("ファイル形式が異なります。\r\n");
         printf("Enterで終了します。\n");
-        gets(buf);
         exit(-1);
       }
     }
@@ -126,7 +125,6 @@ int main(int argc, char** argv)
 
 
     printf("Enterで終了します。\n");
-    gets(buf);
     exit(-1);
   }
 
@@ -138,7 +136,6 @@ int main(int argc, char** argv)
     printf("Enterで終了します。\n");
 
     char buf[1024];
-    gets(buf);
     exit(-1);
   }
 
@@ -248,7 +245,6 @@ int main(int argc, char** argv)
       }else{
         printf("ファイル形式が異なります。\r\n");
         printf("Enterで終了します。\n");
-        gets(buf);
         exit(-1);
       }
     }
@@ -258,5 +254,4 @@ int main(int argc, char** argv)
   fclose(wp);
 
   printf("Enterで終了します。\n");
-  gets(buf);
 }
