@@ -29,7 +29,7 @@ int calc_average(char *filename, float *avgs)
 {
   FILE* fp = fopen(filename, "r");
   char buf[1024];
-  uint32_t item[18];
+  int16_t item[18];
   int t = 0;
 
   for(int i = 0; i < 18; i++){
@@ -162,7 +162,7 @@ int main(int argc, char** argv)
 
   FILE* fp = fopen(argv[1], "r");
   char buf[1024];
-  uint32_t item[18];
+  int16_t item[18];
   uint64_t i = 0;
   float t = 0.0;
   while(char *p = fgets(buf, sizeof(buf), fp)){
