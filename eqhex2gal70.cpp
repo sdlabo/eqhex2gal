@@ -24,7 +24,7 @@ int calc_average(char *filename, float *avgs)
 {
   FILE* fp = fopen(filename, "r");
   char buf[1024];
-  int16_t item[16];
+  uint32_t item[16];
   int t = 0;
 
   for(int i = 0; i < 15; i++){
@@ -36,7 +36,7 @@ int calc_average(char *filename, float *avgs)
     i++;
 
     if(i % 10000 == 0){
-      printf("%6d行経過\n", i);
+      printf("%6ld行経過\n", i);
       fflush(stdout);
     }
 
@@ -139,14 +139,14 @@ int main(int argc, char** argv)
 
   FILE* fp = fopen(argv[1], "r");
   char buf[1024];
-  int16_t item[16];
+  uint32_t item[16];
   uint64_t i = 0;
   float t = 0.0;
   while(char *p = fgets(buf, sizeof(buf), fp)){
     i++;
 
     if(i % 10000 == 0){
-      printf("%6d行経過\n", i);
+      printf("%6ld行経過\n", i);
       fflush(stdout);
     }
 

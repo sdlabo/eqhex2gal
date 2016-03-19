@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <errors.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
@@ -22,7 +22,6 @@
 #include <vector>
 #include <complex>
 
-#include <windows.h>
  
 using namespace std;
 typedef std::complex<double> sdlab_complex;
@@ -31,7 +30,7 @@ int calc_average(char *filename, float *avgs)
 {
   FILE* fp = fopen(filename, "r");
   char buf[1024];
-  int16_t item[27];
+  uint32_t item[27];
   int t = 0;
 
   for(int i = 0; i < 27; i++){
@@ -43,7 +42,7 @@ int calc_average(char *filename, float *avgs)
     i++;
 
     if(i % 10000 == 0){
-      printf("%6d行経過\n", i);
+      printf("%6ld行経過\n", i);
       fflush(stdout);
     }
 
@@ -124,7 +123,6 @@ int main(int argc, char** argv)
 {
 //  char nowarn[] = "CYGWIN=tty nodosfilewarning";
 //  putenv(nowarn);
-  SetEnvironmentVariable("CYGWIN", "CYGWIN=nodosfilewarning");
   if(argc != 2){
     char buf[1024];
 
@@ -177,14 +175,14 @@ int main(int argc, char** argv)
 
   FILE* fp = fopen(argv[1], "r");
   char buf[1024];
-  int16_t item[27];
+  uint32_t item[27];
   uint64_t i = 0;
   float t = 0.0;
   while(char *p = fgets(buf, sizeof(buf), fp)){
     i++;
 
     if(i % 10000 == 0){
-      printf("%6d行経過\n", i);
+      printf("%6ld行経過\n", i);
       fflush(stdout);
     }
 
