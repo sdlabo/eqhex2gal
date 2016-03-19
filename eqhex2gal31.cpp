@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 {
 //  char nowarn[] = "CYGWIN=tty nodosfilewarning";
 //  putenv(nowarn);
-  if(argc != 2){
+  if(argc != 3){
     char buf[1024];
 
     printf("ファイルをドラッグアンドドロップして下さい。\r\n\r\n");
@@ -131,7 +131,7 @@ int main(int argc, char** argv)
   }
 
   char csvfile[1024];
-  sprintf(csvfile, "%s.csv", argv[1]);
+  sprintf(csvfile, "%s", argv[2]);
   FILE* wp = fopen(csvfile, "w");
   if(wp == NULL){
     printf("ファイルが開けません: %s\n\n", csvfile);
